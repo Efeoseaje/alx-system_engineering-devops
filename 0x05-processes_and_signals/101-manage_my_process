@@ -4,14 +4,15 @@
 #!/usr/bin/env bash
 # Manages 'manage_my_process'
 
-if [ "$1" == "start" ]
+if [ "${1}" == "start" ]
 then
-  ./manage_my_process &
-  echo $$ > /var/run/my_process.pid
-  echo "manage_my_process started"
-elif [ "$1" == "stop" ]
+    ./manage_my_process &
+    touch /var/run/my_process.pid
+    echo "$!" > /var/run/my_process.pid
+    echo "manage_my_process started"
+elif [ "${1}" == "stop" ]
 then
-	echo "manage_my_process stopped"
+    echo "manage_my_process stopped"
     kill "$(cat /var/run/my_process.pid)"
     rm /var/run/my_process.pid
 elif [ "${1}" == "restart" ]
